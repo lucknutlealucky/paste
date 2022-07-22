@@ -1,13 +1,4 @@
 ---
-
-- name: install firewalld
-  hosts: all
-  become: yes
-  tasks:
-    - name: firewalld installed
-      yum:
-        name:
-          - firewalld
 #Soal 1
 - name: Remove all New User
   hosts: asia:ungrouped
@@ -68,10 +59,6 @@
       ansible.builtin.yum:
         name: httpd
         state: absent
-    - name: Remove the sshd package
-      ansible.builtin.yum:
-        name: openssh-server
-        state: absent
     - name: Remove the firewalld package
       ansible.builtin.yum:
         name: firewalld
@@ -86,7 +73,7 @@
       service:
         name: firewalld
         enabled: true
-        state: started
+        state: stoped
         
 #Soal 3
 - name: uninstall group packages rpm development packages
