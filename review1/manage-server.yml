@@ -4,20 +4,20 @@
   hosts: asia:ungrouped
   become: yes
   tasks:
-  - name: Ensure group "unggas" exists with correct gid
-    ansible.builtin.group:
-      name: unggas
-      state: present
+    - name: Ensure group "unggas" exists with correct gid
+      ansible.builtin.group:
+        name: unggas
+        state: present
 
-  - name: Ensure group "sate" exists with correct gid
-    ansible.builtin.group:
-      name: sate
-      state: present
+    - name: Ensure group "sate" exists with correct gid
+      ansible.builtin.group:
+        name: sate
+        state: present
 
-  - name: Ensure group "reptil" exists with correct gid
-    ansible.builtin.group:
-      name: reptil
-      state: present
+    - name: Ensure group "reptil" exists with correct gid
+      ansible.builtin.group:
+        name: reptil
+        state: present
 
     - name: Add the user 'ayam', appending the group 'unggas' and 'sate' to the user's groups
       ansible.builtin.user:
