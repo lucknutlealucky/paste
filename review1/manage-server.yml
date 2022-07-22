@@ -24,21 +24,25 @@
         name: ayam
         groups: unggas,sate
         append: yes
+        
     - name: Add the user 'bangau', appending the group 'unggas' to the user's groups
       ansible.builtin.user:
         name: bangau
         groups: unggas
         append: yes
+        
     - name: Add the user 'cicak', appending the group 'reptil' to the user's groups
       ansible.builtin.user:
         name: cicak
         groups: reptil
         append: yes
+        
     - name: Add the user 'kadal', appending the group 'reptil' to the user's groups
       ansible.builtin.user:
         name: kadal
         groups: reptil
         append: yes
+        
     - name: Add the user 'kambing', appending the group 'sate' to the user's groups
       ansible.builtin.user:
         name: kambing
@@ -92,10 +96,6 @@
         name: firewalld
         state: stopped
         enabled: false
-      when:
-        - ansible_os_family == "RedHat"
-        - firewall_disable_firewalld
-        - firewalld_installed.rc == 0
 
 #Soal 5
 - name: installs packages maria-db
@@ -142,14 +142,3 @@
         name: httpd
         enabled: true
         state: started
-        
-#Tambahan :D
-- name: Test intranet web server
-  hosts: localhost
-  become: no
-  tasks:
-    - name: connect to intranet web server
-      uri:
-        url: http://servera.lab.example.com
-        return_content: yes
-        status_code: 200
