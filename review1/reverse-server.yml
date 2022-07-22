@@ -3,7 +3,7 @@
 - name: Remove all New User
   hosts: asia:ungrouped
   become: yes
-  task:
+  tasks:
     - name: Remove the user 'ayam'
       ansible.builtin.user:
         name: ayam
