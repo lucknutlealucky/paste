@@ -1,4 +1,13 @@
 ---
+
+- name: install firewalld
+  hosts: all
+  become: yes
+  tasks:
+    - name: firewalld installed
+      yum:
+        name:
+          - firewalld
 #Soal 1
 - name: Remove all New User
   hosts: asia:ungrouped
