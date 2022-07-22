@@ -9,26 +9,45 @@
         name: ayam
         state: absent
         remove: yes
+        
     - name: Remove the user 'bangau'
       ansible.builtin.user:
         name: bangau
         state: absent
         remove: yes
+        
     - name: Remove the user 'cicak'
       ansible.builtin.user:
         name: cicak
         state: absent
         remove: yes
+        
     - name: Remove the user 'kadal'
       ansible.builtin.user:
         name: kadal
         state: absent
         remove: yes
+        
     - name: Remove the user 'kambing'
       ansible.builtin.user:
         name: kambing
         state: absent
         remove: yes
+        
+    - name: delete group unggas
+      ansible.builtin.group:
+        name: unggas
+        state: absent
+        
+    - name: delete group sate
+      ansible.builtin.group:
+        name: sate
+        state: absent
+        
+    - name: delete group reptil
+      ansible.builtin.group:
+        name: reptil
+        state: absent
         
         
 #Soal 2
@@ -48,6 +67,17 @@
       ansible.builtin.yum:
         name: firewalld
         state: absent
+        
+#Soal 4
+- name: task untuk mematikan firewall
+  hosts: ~(serverc|serverd).*\.lab.example\.com
+  become: yes
+  tasks:
+    - name: Disable the firewalld service (on RHEL).
+      service:
+        name: firewalld
+        enabled: true
+        state: started
         
 #Soal 3
 - name: uninstall group packages rpm development packages
