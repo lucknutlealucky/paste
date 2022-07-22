@@ -1,0 +1,140 @@
+---
+#Soal 1
+- name: Add New User
+  hosts: asia:ungrouped
+  become: yes
+  task:
+    - name: Add the user 'ayam', appending the group 'unggas' and 'sate' to the user's groups
+      ansible.builtin.user:
+        name: ayam
+        groups: unggas,sate
+        append: yes
+    - name: Add the user 'bangau', appending the group 'unggas' to the user's groups
+      ansible.builtin.user:
+        name: bangau
+        groups: unggas
+        append: yes
+    - name: Add the user 'cicak', appending the group 'reptil' to the user's groups
+      ansible.builtin.user:
+        name: cicak
+        groups: reptil
+        append: yes
+    - name: Add the user 'kadal', appending the group 'reptil' to the user's groups
+      ansible.builtin.user:
+        name: kadal
+        groups: reptil
+        append: yes
+    - name: Add the user 'kambing', appending the group 'sate' to the user's groups
+      ansible.builtin.user:
+        name: kambing
+        groups: sate
+        append: yes
+        
+        
+#Soal 2
+- name: install package httpd, sshd, firewalld
+  hosts: all:!asia
+  become: yes
+  tasks:
+    - name: latest version of httpd. sshd, and firewalld installed
+      yum:
+        name:
+          - httpd
+          - firewalld
+          - sshd
+        state: latest
+
+    - name: test html page is installed
+      copy:
+        content: "Welcome to the example.com intranet!\n"
+        dest: /var/www/html/index.html
+
+    - name: firewalld permits access to httpd service
+      firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: yes
+        
+#Soal 3
+- name: menginstall group packages rpm development packages
+  hosts: ~(servera|serverb).*\.lab.example\.com
+  become: yes
+  tasks:
+    - name: latest version of httpd. sshd, and firewalld installed
+      yum:
+        name:
+          - rpm-devel
+        state: latest
+        
+#Soal 4
+- name: task untuk mematikan firewall
+  hosts: ~(serverc|serverd).*\.lab.example\.com
+  become: yes
+  tasks:
+    - name: Disable the firewalld service (on RHEL).
+      service:
+        name: firewalld
+        state: stopped
+        enabled: false
+      when:
+        - ansible_os_family == "RedHat"
+        - firewall_disable_firewalld
+        - firewalld_installed.rc == 0
+
+#Soal 5
+- name: installs packages maria-db
+  hosts: development
+  become: yes
+  tasks:
+    - name: latest version maria-db
+      yum:
+        name:
+          - mariadb-server
+        state: latest
+        
+#Soal 6
+- name: installs packages tmux
+  hosts: production
+  become: yes
+  tasks:
+    - name: latest version of tmux
+      yum:
+        name:
+          - tmux
+        state: latest
+
+        
+#soal 6
+- name: Test services http, firewalld, dan ssh aktif dan enabled
+  hosts: all:!~(serverc|serverd).*\.lab.example\.com
+  become: yes
+  tasks:
+    - name: firewalld enabled and running
+      service:
+        name: firewalld
+        enabled: true
+        state: started
+        
+    - name: sshd enabled and running
+      service:
+        name: sshd
+        enabled: true
+        state: started
+        
+    - name: httpd enabled and running
+      service:
+        name: httpd
+        enabled: true
+        state: started
+        
+#Tambahan :D
+- name: Test intranet web server
+  hosts: localhost
+  become: no
+  tasks:
+    - name: connect to intranet web server
+      uri:
+        url: http://servera.lab.example.com
+        return_content: yes
+        status_code: 200
