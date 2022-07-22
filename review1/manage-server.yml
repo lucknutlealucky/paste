@@ -56,7 +56,7 @@
         name:
           - httpd
           - firewalld
-          - sshd
+          - openssh-server
         state: latest
 
     - name: test html page is installed
