@@ -73,7 +73,7 @@
       service:
         name: firewalld
         enabled: true
-        state: stoped
+        state: started
         
 #Soal 3
 - name: uninstall group packages rpm development packages
