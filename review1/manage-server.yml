@@ -137,8 +137,8 @@
         enabled: true
         state: started
         
-    - name: httpd enabled and running
+    - name: httpd is started
       service:
         name: httpd
-        enabled: true
         state: started
+        enabled: true
