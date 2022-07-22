@@ -1,0 +1,81 @@
+---
+#Soal 1
+- name: Remove all New User
+  hosts: asia:ungrouped
+  become: yes
+  task:
+    - name: Remove the user 'ayam'
+      ansible.builtin.user:
+        name: ayam
+        state: absent
+        remove: yes
+    - name: Remove the user 'bangau'
+      ansible.builtin.user:
+        name: bangau
+        state: absent
+        remove: yes
+    - name: Remove the user 'cicak'
+      ansible.builtin.user:
+        name: cicak
+        state: absent
+        remove: yes
+    - name: Remove the user 'kadal'
+      ansible.builtin.user:
+        name: kadal
+        state: absent
+        remove: yes
+    - name: Remove the user 'kambing'
+      ansible.builtin.user:
+        name: kambing
+        state: absent
+        remove: yes
+        
+        
+#Soal 2
+- name: uninstall package httpd, sshd, firewalld
+  hosts: all:!asia
+  become: yes
+  tasks:
+    - name: Remove the httpd package
+      ansible.builtin.yum:
+        name: httpd
+        state: absent
+    - name: Remove the sshd package
+      ansible.builtin.yum:
+        name: sshd
+        state: absent
+    - name: Remove the firewalld package
+      ansible.builtin.yum:
+        name: firewalld
+        state: absent
+        
+#Soal 3
+- name: uninstall group packages rpm development packages
+  hosts: ~(servera|serverb).*\.lab.example\.com
+  become: yes
+  tasks:
+    - name: Remove the rpm-devel package
+      ansible.builtin.yum:
+        name: rpm-devel
+        state: absent
+        
+
+#Soal 5
+- name: installs packages maria-db
+  hosts: development
+  become: yes
+  tasks:
+    - name: Remove the mariadb-server package
+      ansible.builtin.yum:
+        name: mariadb-server
+        state: absent
+        
+#Soal 6
+- name: installs packages tmux
+  hosts: production
+  become: yes
+  tasks:
+    - name: Remove the tmux package
+      ansible.builtin.yum:
+        name: tmux
+        state: absent
