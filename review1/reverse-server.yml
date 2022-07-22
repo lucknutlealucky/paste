@@ -42,7 +42,7 @@
         state: absent
     - name: Remove the sshd package
       ansible.builtin.yum:
-        name: sshd
+        name: openssh-server
         state: absent
     - name: Remove the firewalld package
       ansible.builtin.yum:
